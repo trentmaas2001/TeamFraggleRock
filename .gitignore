@@ -1,0 +1,13 @@
+
+*.wt
+*.2023-10-19T00-04-58Z-00000
+*.interim
+*.0000000001
+*.0000000002
+MongoDB/Server/7.0/data/WiredTiger
+MongoDB/Server/7.0/data/mongod.lock
+MongoDB/Server/7.0/data/storage.bson
+*.lock
+*.turtle
+*.log
+MongoTest/node_modules
