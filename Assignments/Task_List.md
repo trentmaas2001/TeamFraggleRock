@@ -20,3 +20,13 @@
 
 10.) Develop web app backend that saves all user input from the web app and makes the appropriate queries in the MongoDB Database.
 
+11.) Design user interface for allowing the user to make foreign keys inside of documents
+
+12.) Design User Interface for allowing the user to make lists within database
+
+13.) Debug Add button (Modal Diologue does not appear when button is pressed)
+
+14.) Develop Functionalty for user to change an input box from a normal input to one that uses ckEditor
+
+15.) Design Functionality enabling users to input complex JSON structures (ex. key : {key1: value1, key2: value2})
+
