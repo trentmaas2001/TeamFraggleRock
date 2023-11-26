@@ -28,7 +28,7 @@ Here we have a login page that a user would input their username and password in
 
 ## [Milestones (Timeline and Effort Matrix)](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/Assignments/Milestones.pdf)
 
-## ABET Concerns Essay(https://github.com/trentmaas2001/TeamFraggleRock/blob/main/Assignments/Constraint_Essay.pdf)
+## [ABET Concerns Essay](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/Assignments/Constraint_Essay.pdf)
 
 ## [Fall PowerPoint](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/Assignments/FallPowerPoint.pdf)
 
