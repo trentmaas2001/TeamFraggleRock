@@ -59,6 +59,19 @@ app.delete("/api/deletename/:id", async (req, res) => {
 	res.json(respObj)
 })
 
+app.put("/api/replaceone/:id", async (req, res) => {
+	const id = req.params.id
+	const replacement = req.body
+	let respObj = {}
+	try {
+        respObj = await dbFunctions.replaceDoc(id, replacement);
+	} catch {
+		console.error("# Replace Error", err)
+		res.status(500).send({ error: err.name + ", " + err.message })
+		return
+	}
+})
+
 // Start the web server and connect to the database
 
 let server

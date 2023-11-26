@@ -44,11 +44,10 @@ h1 {
 }
 
 #table-wrapper {
-	height: 250px;
 	width: 100%;
 	border-bottom: 1px solid lightgrey;
 	padding-bottom: 25px;
-	overflow-y: auto;
+	overflow-y: visible;
 }
 
 table {
@@ -87,6 +86,11 @@ table tr th:nth-child(4), table tr td:nth-child(4) {
 	cursor: pointer;
 }
 
+.save {
+	margin: 5px;
+	width: min-content;
+}
+
 .textinput {
 	padding: 5px;
 	font-size: 16px;
@@ -106,3 +110,30 @@ table tr th:nth-child(4), table tr td:nth-child(4) {
 #status-label {
 	margin-left: 15%;
 }
+
+/* The Modal (background) */
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+/* Modal Content */
+.modal-content {
+	position: relative;
+	background-color: #fefefe;
+	margin: auto;
+	padding: 0;
+	border: 1px solid #888;
+	width: 80%;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+	animation-name: animatetop;
+	animation-duration: 0.4s
+  }

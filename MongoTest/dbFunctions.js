@@ -20,5 +20,10 @@ module.exports = {
 	deleteDoc: async (id) => {
 		const filter = { _id: new ObjectId(id) }
 		return await db.collection(coll).deleteOne(filter)
+	},
+
+	replaceDoc: async (id, replacement) => {
+		const filter = { _id: new ObjectId(id) }
+		return await db.collection(coll).replaceOne(filter, replacement)
 	}
 }
