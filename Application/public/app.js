@@ -64,13 +64,9 @@ function addToTable(doc) {
   const cell1 = row.insertCell(0)
   const cell2 = row.insertCell(1)
   const cell3 = row.insertCell(2)
-  const cell4 = row.insertCell(3)
-  const cell5 = row.insertCell(4)
   cell1.innerHTML = "<a href=" + url + "><button>></button></a>"
   cell2.innerHTML = doc.title
   cell3.innerHTML = doc.genre
-  cell4.innerHTML = doc.developer
-  cell5.innerHTML = "<input type='hidden' value=" + doc._id + ">"
 }
 
 function selectRow(obj) {
@@ -82,9 +78,6 @@ function selectRow(obj) {
 }
 
 function setSelection(row) {
-
-  document.getElementById("name").value = row.cells.item(0).innerHTML
-  document.getElementById("country").value = row.cells.item(1).innerHTML
   row.style.backgroundColor = rowSelectColor
 
   if (prevSelection && prevSelection !== selectedRowIx) {
@@ -166,23 +159,6 @@ function postToDB(doc) {
         "There was an error posting data to the database. " + 
         "See browser's console for more details."
     })
-}
-
-/*
- * Routine to delete a selected row from the HTML table and the database.
- * Makes the delete request using the fetch API.
- * The response from the fetch has the confirmation message about the
- * deleted document.
- */
-function deleteData() {
-
-  if (selectedRowIx) {
-    const id = table.rows[selectedRowIx].cells.item(3).firstChild.value
-    deleteFromDB(id)
-  }
-  else {
-    alert("Select a row to delete!")
-  }
 }
 
 function deleteFromDB(id) {

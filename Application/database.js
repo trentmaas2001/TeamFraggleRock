@@ -1,11 +1,11 @@
 const { MongoClient } = require("mongodb")
-const uri = "mongodb://127.0.0.1:27017"
-const opts = { useUnifiedTopology: true }
+//const uri = "mongodb://127.0.0.1:27017"
+//uri = "mongodb://DBManager:password@localhost:27017/?authSource=TestDB"
 
-const connect = async () => {
+const connect = async (uri) => {
 	try {
 		console.log("# Connecting to database server...")
-		const client = await MongoClient.connect(uri, opts)
+		const client = await MongoClient.connect(uri)
 		console.log("# Connected")
 		return client
 	}

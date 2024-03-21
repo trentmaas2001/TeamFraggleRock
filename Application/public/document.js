@@ -5,7 +5,7 @@ const replaceURL = "http://localhost:3000/api/replaceone/"
 
 let table
 let displayDocument
-let selectedRowIx
+let initial
 
 window.onload = () => {
     table = document.getElementById("data-table")
@@ -44,38 +44,25 @@ window.onload = () => {
     });
     for (const key in displayDocument) {
         if (key != '_id') {
-          selectedRowIx = table.rows.length;
-          let row = table.insertRow(selectedRowIx);
-          let cell1 = row.insertCell(0);
-          let cell2 = row.insertCell(1);
-          let cell3 = row.insertCell(2);
-          cell1.innerHTML = key
-          cell2.innerHTML = "<input type='text' value='" + displayDocument[key] + "'></input>"
-          cell3.innerHTML = "<input type='radio' name='select' onclick='selectRow(this)' checked>"
-          cell3.className = "tradio"
+          addRowInit(key)
         }
       }
   }
 
-  function selectRow(obj) {
-
-    const row = (obj) ? obj.parentElement.parentElement : table.rows[table.rows.length - 1]
-    selectedRowIx = row.rowIndex
-  }
-
-  function deleteFromTable() {
-    table.deleteRow(selectedRowIx)
-    selectedRowIx = -1
+  function deleteFromTable(rowIndex) {
+    table.deleteRow(rowIndex)
   }
 
   function saveData() {
     replacement = {}
     for (var i = 1, row; row = table.rows[i]; i++) {
-        replacement[row.cells[0].innerHTML] = row.cells[1].getElementsByTagName('input')[0].value
+        if (row.cells[1].getElementsByTagName('input')[0].value != '' && row.cells[2].getElementsByTagName('input')[0].value != '') {
+          replacement[row.cells[1].getElementsByTagName('input')[0].value] = row.cells[2].getElementsByTagName('input')[0].value
+        }
     }
     console.log(replacement)
     fetch(replaceURL + docid, {
-      method: "PUT",
+      method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
@@ -89,3 +76,24 @@ window.onload = () => {
       document.getElementById("status").innerHTML = msg
     })
   }
+
+  function addRowInit(key) {
+    let row = table.insertRow(table.rows.length);
+    let cell1 = row.insertCell(0);
+    let cell2 = row.insertCell(1);
+    let cell3 = row.insertCell(2);
+    cell1.innerHTML = "<button id='" + (table.rows.length - 1) + "' title='Delete' onclick='deleteFromTable(this.id)'>></button>"
+    cell2.innerHTML = "<input type='text' value='" + key + "'></input>"
+    cell3.innerHTML = "<input type='text' value='" + displayDocument[key] + "'></input>"
+  }
+
+  function addRow() {
+    let row = table.insertRow(table.rows.length);
+    let cell1 = row.insertCell(0);
+    let cell2 = row.insertCell(1);
+    let cell3 = row.insertCell(2);
+    cell1.innerHTML = "<button id='" + (table.rows.length - 1) + "' title='Delete' onclick='deleteFromTable(this.id)'>></button>"
+    cell2.innerHTML = "<input type='text'></input>"
+    cell3.innerHTML = "<input type='text'></input>"
+  }
+
