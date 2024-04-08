@@ -2,8 +2,10 @@
 <html>
 
 <head>
-
+  <script src="tinymce/tinymce.min.js"></script>
+  <script src="./bootstrap/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
   <script src="document.js"></script>
   <title>&#10073; Team Fraggle Rock</title>
 
@@ -11,7 +13,61 @@
 
 <body>
 
-  <h1 class="centering"><span id="h1-symbol">&#10073;&nbsp;</span>Team Fraggle Rock</h1>
+  <nav class="navbar bg-success navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <span class="navbar-brand">MongoDB Editor and Quality Assurance</span>
+    </div>
+  </nav>
+  <!-- Modal Dialogs-->
+  <!-- Save Modal -->
+  <div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="saveModalLabel">Save Document?</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button onclick="saveData()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Delete Row Modal -->
+  <div class="modal fade" id="deleteRowModal" tabindex="-1" aria-labelledby="deleteRowModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="deleteRowModalLabel">Are you sure you want to Delete this item?</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button id="deleteRowButton" type="button" class="btn btn-danger" onclick='deleteFromDocTable()' data-bs-dismiss="modal">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Delete List Item Modal -->
+  <div class="modal fade" id="deleteArrayItemModal" tabindex="-1" aria-labelledby="deleteArrayItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="deleteArrayItemModalLabel">Are you sure you want to Delete this item?</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="deleteFromArrayTable()">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Main Table-->
 
   <div id="grid-container">
 
@@ -19,19 +75,19 @@
       <table id="data-table">
         <thead>
           <tr>
-            <th>Actions</th>
-            <th>Key</th>
-            <th>Value</th>
+            <th class="col-2">Actions</th>
+            <th class="col-2">Key</th>
+            <th class="col-8">Value</th>
           </tr>
         </thead>
         <tbody></tbody>
       </table>
       <div>
-        <button type="button" class="buttons" onclick="addRow()" title="Add row to table">Add</button>
+        <button type="button" class="btn btn-success" onclick="addRow()" title="Add row to table">Add</button>
         <span class="gap-1"></span>
       </div>
     </div>
-    <button onclick="saveData()" class="save buttons">Save</button>
+    <button type="button" class="btn btn-success save" data-bs-toggle="modal" data-bs-target="#saveModal">Save Document</button>
   </div>
 </body>
 </html>
