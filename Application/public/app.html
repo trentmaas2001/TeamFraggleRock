@@ -17,26 +17,37 @@
       <span class="navbar-brand">MongoDB Editor and Quality Assurance</span>
     </div>
   </nav>
+  <!-- Delete Row Modal -->
+  <div class="modal fade" id="deleteRowModal" tabindex="-1" aria-labelledby="deleteRowModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="deleteRowModalLabel">Are you sure you want to Delete this item?</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button id="deleteRowButton" type="button" class="btn btn-danger" onclick='deleteFromDB()' data-bs-dismiss="modal">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div id="grid-container">
 
     <div id="table-wrapper">
       <table id="data-table">
         <thead>
           <tr>
-            <th>Actions</th>
-            <th>Title</th>
-            <th>Genre</th>
+            <th class='col-2'>Actions</th>
+            <th class='col-10'>Document Preview</th>
           </tr>
         </thead>
         <tbody></tbody>
       </table>
+      <div>
+        <a href="./newDoc.html"><button class='btn btn-success buttons'>Add New Document</button></a>
+      </div>
     </div>
-  </div>
-  
-  <br><br>
-
-  <div id="status-label" class="labels">
-    Status: <span id="status" class="gap-2"></span>
   </div>
 
 </body>

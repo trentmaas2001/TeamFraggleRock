@@ -19,8 +19,6 @@ app.use(express.json())
 let conn
 
 let init
-let diff
-let diffString
 
 // The route definitions for get, post and delete
 
@@ -36,10 +34,8 @@ app.get("/api/allnames", async (req, res) => {
 	}
 })
 
-app.post('/api/addname', async (req, res) => {
-
-	let data = req.body;
-
+app.post('/api/addDoc', async (req, res) => {
+	let data = req.body; 
 	try {
 		data = await dbFunctions.addDoc(data)
 		res.json(data)
