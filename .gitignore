@@ -85,3 +85,5 @@ Application/node_modules/tr46/lib/mappingTable.json
 Application/node_modules/tr46/lib/regexes.js
 Application/node_modules/tr46/package.json
 Application/node_modules/tr46/README.md
+Application/public/bootstrap
+Application/public/tinymce
