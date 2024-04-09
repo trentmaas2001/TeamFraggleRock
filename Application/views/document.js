@@ -89,7 +89,7 @@ window.onload = () => {
         }
       }
     }
-    fetch(replaceURL + docid, {
+    fetch(replaceURL + docid + "/" + logUser, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

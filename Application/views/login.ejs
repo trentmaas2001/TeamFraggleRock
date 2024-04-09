@@ -1,0 +1,30 @@
+<head>
+  <script src="./bootstrap/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+  <title>&#10073; Team Fraggle Rock</title>
+
+</head>
+
+<nav class="navbar bg-success navbar-expand-lg navbar-dark">
+  <div class="container-fluid">
+    <span class="navbar-brand">MongoDB Editor and Quality Assurance</span>
+  </div>
+</nav>
+
+<h1 style='padding-left: 10px;'>Login</h1>
+<% if (messages.error) { %>
+  <%= messages.error %>
+<% } %>
+<form style='padding-left: 10px;' action="/login" method="POST">
+  <div>
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required>
+  </div>
+  <div>
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required>
+  </div>
+  <button class='btn btn-success' type="submit">Login</button>
+</form>
+<a style='padding-left: 10px;' href="/register">Register</a>

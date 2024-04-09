@@ -53,7 +53,7 @@ function buildTable(data) {
 }
 
 function addToTable(doc) {
-  url = rootURL + "/document.html?docID=" + doc._id
+  url = rootURL + "/document?docID=" + doc._id
   const row = table.insertRow(table.rows.length);
   
   const cell1 = row.insertCell(0)
@@ -65,7 +65,7 @@ function addToTable(doc) {
 
 function deleteFromDB() {
   id = relatedButtonDataTable.getAttribute('id')
-  fetch(deleteURL + id, { method: "DELETE" })
+  fetch(deleteURL + id + "/" + logUser, { method: "DELETE" })
     .then(res => {
       if (res.ok) {
         return res.json()
@@ -93,7 +93,7 @@ function buildPreviewText(doc) {
   returnText = "{<br>"
   i=0
   for (const key in doc) {
-    if (i>9) {
+    if (i>4) {
       returnText += "More...<br>"
       break
     } else {

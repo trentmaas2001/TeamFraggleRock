@@ -1,7 +1,6 @@
 const searchParams = new URLSearchParams(window.location.search);
 const docid = searchParams.get('docID');
-const insertURL = "http://localhost:3000/api/addDoc"
-const replaceURL = "http://localhost:3000/api/replaceone/"
+const insertURL = "http://localhost:3000/api/addDoc/"
 
 let table
 let displayDocument
@@ -54,7 +53,7 @@ window.onload = () => {
         }
       }
     }
-    fetch(insertURL, {
+    fetch(insertURL + logUser, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -71,7 +70,7 @@ window.onload = () => {
           })
           .then(returnJson => {
             newID = returnJson.insertedId
-            open(('http://localhost:3000/document.html?docID=' + newID), '_self')
+            open(('/document?docID=' + newID), '_self')
           })
           .catch(error => {
             console.error("# Error:", error)

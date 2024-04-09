@@ -1,26 +1,110 @@
 if (process.env.NODE_ENV !== 'production') {
-	require('dotenv').config()
+  require('dotenv').config()
 }
 
-const express = require("express")
-const cors = require("cors")
+const express = require('express')
+const app = express()
+const bcrypt = require('bcrypt')
+const passport = require('passport')
+const flash = require('express-flash')
+const session = require('express-session')
+const methodOverride = require('method-override')
 const database = require('./database')
 const dbFunctions = require('./dbFunctions')
 const { ObjectId } = require("mongodb")
 
+const initializePassport = require('./passport-config')
+initializePassport(
+  passport,
+  email => users.find(user => user.email === email),
+  id => users.find(user => user.id === id)
+)
+
 const port = 3000
 
-const app = express()
-app.use(cors())
-app.use(express.static("public"))
-app.use(express.json())
+const users = [{
+}]
 
+app.set('view-engine', 'ejs')
+app.use(express.urlencoded({ extended: false }))
+app.use(express.static("views"))
+app.use(express.json())
+app.use(flash())
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+app.use(methodOverride('_method'))
 
 let conn
 
 let init
 
-// The route definitions for get, post and delete
+app.get('/', checkAuthenticated, (req, res) => {
+  res.render('app.ejs', { name: req.user.name })
+})
+
+app.get('/login', checkNotAuthenticated, (req, res) => {
+  res.render('login.ejs')
+})
+
+app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/login',
+  failureFlash: true
+}))
+
+app.get('/newDoc', checkAuthenticated, (req, res) => {
+  res.render('newDoc.ejs', { name: req.user.name })
+})
+
+app.get('/document', checkAuthenticated, (req, res) => {
+  res.render('document.ejs', { name: req.user.name })
+})
+
+app.get('/register', checkNotAuthenticated, (req, res) => {
+  res.render('register.ejs')
+})
+
+app.post('/register', checkNotAuthenticated, async (req, res) => {
+  try {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10)
+    users.push({
+      id: Date.now().toString(),
+      name: req.body.name,
+      email: req.body.email,
+      password: hashedPassword
+    })
+    res.redirect('/login')
+  } catch {
+    res.redirect('/register')
+  }
+})
+
+app.delete('/logout', (req, res) => {
+  req.logout(function(err) {
+    if (err) { return next(err); }
+    res.redirect('/login');
+  });
+})
+
+function checkAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next()
+  }
+
+  res.redirect('/login')
+}
+
+function checkNotAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return res.redirect('/')
+  }
+  next()
+}
 
 app.get("/api/allnames", async (req, res) => {
 	try {
@@ -34,10 +118,11 @@ app.get("/api/allnames", async (req, res) => {
 	}
 })
 
-app.post('/api/addDoc', async (req, res) => {
+app.post('/api/addDoc/:user', async (req, res) => {
+  const user = req.params.user
 	let data = req.body; 
 	try {
-		data = await dbFunctions.addDoc(data)
+		data = await dbFunctions.addDoc(data, user)
 		res.json(data)
 	}
 	catch (err) {
@@ -46,14 +131,15 @@ app.post('/api/addDoc', async (req, res) => {
 	}
 });
 
-app.delete("/api/deletename/:id", async (req, res) => {
+app.delete("/api/deletename/:id/:user", async (req, res) => {
 
 	const id = req.params.id
+  const user = req.params.user
 	let respObj = {}
 	
 	if (id && ObjectId.isValid(id)) {
 		try {
-			respObj = await dbFunctions.deleteDoc(id)
+			respObj = await dbFunctions.deleteDoc(id, user)
 		}
 		catch (err) {
 			console.error("# Delete Error", err)
@@ -68,12 +154,12 @@ app.delete("/api/deletename/:id", async (req, res) => {
 	res.json(respObj)
 })
 
-app.post("/api/replaceone/:id", async (req, res) => {
+app.post("/api/replaceone/:id/:user", async (req, res) => {
 	const id = req.params.id
+  const user = req.params.user
 	const replacement = req.body
-	let respObj = {}
 	try {
-        respObj = await dbFunctions.replaceDoc(id, replacement, init);
+    respObj = await dbFunctions.replaceDoc(id, replacement, user, init);
 	} catch (err) {
 		console.error("# Replace Error", err)
 		res.status(500).send({ error: err.name + ", " + err.message })
@@ -81,21 +167,6 @@ app.post("/api/replaceone/:id", async (req, res) => {
 	}
 })
 
-app.post("/api/login/:usr/:pwd", async (req, res) => {
-	var username = req.params.usr
-	var password = req.params.pwd
-	var connString = "mongodb://" + username + ":" + password + "@localhost:27017/?authSource=TestDB"
-	try {
-		conn = await database(connString)
-		await dbFunctions.getDb(conn)
-	}
-	catch (err) {
-		console.log(err)
-	}
-})
-
-// Start the web server and connect to the database
- 
 let server
 
 (async () => {
@@ -103,6 +174,9 @@ let server
 		server = app.listen(port, () => {
 			console.log("# App server listening on port " + port)
 		})
+    connString = 'mongodb://localhost:27017'
+    conn = await database(connString)
+		await dbFunctions.getDb(conn)
 	}
 	catch(err) {
 		console.error("# Error:", err)
