@@ -28,28 +28,28 @@ module.exports = {
 		return await db.collection(coll).find().toArray()
 	},
 	
-	addDoc: async (doc) => {
+	addDoc: async (doc, user) => {
 		logTime = getLogTime()
 		logDoc = {}
-		logDoc['user'] = 'DBManager'
+		logDoc['user'] = user
 		logDoc['date'] = logTime
-		logDoc['diff'] = doc
+		logDoc['addedDoc'] = doc
 		await log.collection(logColl).insertOne(logDoc)
 		return await db.collection(coll).insertOne(doc)
 	},
 	
-	deleteDoc: async (id) => {
+	deleteDoc: async (id, user) => {
 		const filter = { _id: new ObjectId(id) }
 		logTime = getLogTime()
 		doc = {}
-		doc['user'] = 'DBManager'
+		doc['user'] = user
 		doc['date'] = logTime
 		doc['removedDocument'] = db.collection(coll).findOne(filter)
 		await log.collection(logColl).insertOne(doc)
 		return await db.collection(coll).deleteOne(filter)
 	},
 
-	replaceDoc: async (id, replacement, init) => {
+	replaceDoc: async (id, replacement, user, init) => {
 		const filter = { _id: new ObjectId(id) }
 		let logTime = getLogTime()
 		init.forEach(doc => {
@@ -85,7 +85,7 @@ module.exports = {
 		diffMap['removed'] = removed
 		diffMap['unchanged'] = unchanged
 		logDoc = {}
-		logDoc['user'] = 'DBManager'
+		logDoc['user'] = user
 		logDoc['date'] = logTime
 		logDoc['changesLog'] = diffMap
 		await log.collection(logColl).insertOne(logDoc)
