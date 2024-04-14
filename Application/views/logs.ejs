@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<!-- Pull in javasctipt-->
+<head>
+  <script src="./bootstrap/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+  <script src="logs.js"></script>
+  <title>&#10073; Team Fraggle Rock</title>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar bg-success navbar-expand-lg navbar-dark">
+    <span class="navbar-brand">MongoDB Editor and Quality Assurance</span>
+    <span class='backButton'> 
+      <a href="/"><button class='btn btn-dark buttons'>Reviews Page</button></a>
+      <form action="/logout?_method=DELETE" method="POST">
+        <button class='btn btn-dark buttons' type="submit">Log Out</button>
+      </form>
+    </span>
+  </nav>
+  <!--table container holding table of logs-->
+  <div id="grid-container">
+
+    <div id="table-wrapper">
+      <table id="data-table">
+        <thead>
+          <tr>
+            <th class='col-2'>Actions</th>
+            <th class='col-10'>Review Preview</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+         
+</body>
+
+</html>

@@ -2,18 +2,19 @@ const searchParams = new URLSearchParams(window.location.search);
 const docid = searchParams.get('docID');
 const insertURL = "http://localhost:3000/api/addDoc/"
 
+/* Table DOM Element */
 let table
-let displayDocument
-let initial
+// Count of tinyMCE instances so that each instance can have a unique id
 let tmceInstances = 0
+/* DOM Elements that last called the modals used for Deleting Items and Saving the Document*/
 let relatedButtonDataTable
 let relatedButtonArrayTable
-let isAdded = false
+// ID for if a the user saves the new Document
 let newID
 
 window.onload = () => {
     table = document.getElementById("data-table")
-    console.log(docid);
+    /* listener events for showing modal and storing the button DOM object used to reveal modal dialog */ 
     let deleteRowModal = document.getElementById('deleteRowModal')
     let deleteArrayItemModal = document.getElementById('deleteArrayItemModal')
     deleteRowModal.addEventListener('show.bs.modal', event => {
@@ -22,13 +23,21 @@ window.onload = () => {
     deleteArrayItemModal.addEventListener('show.bs.modal', event => {
       relatedButtonArrayTable = event.relatedTarget
     })
+    // Initilize empty doc with a single empty row
     addRow()
   }
 
+  /* Delete row from table containing relatedButtonDataTable DOM Element*/
   function deleteFromDocTable() {
     table.deleteRow(relatedButtonDataTable.parentElement.parentElement.rowIndex)
   }
 
+  /* Request to save contents of table to InWork Collection
+   * Checks type of table row (text,array,longtext) and builds the data into the replacement JSON object accordingly
+   * Once replacement is built out update the _status to InWork and make a fetch to insert the contents
+   * of the document into the InWork collection with the contents of replacement JSON
+   * Redirects user to the document editing page of the newly created doc
+   */
   function saveData() {
     replacement = {}
     for (var i = 1, row; row = table.rows[i]; i++) {
@@ -53,7 +62,8 @@ window.onload = () => {
         }
       }
     }
-    fetch(insertURL + logUser, {
+    replacement["_status"] = "In Work"
+    fetch(insertURL, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -81,7 +91,7 @@ window.onload = () => {
           })
   }
 
-
+  /* Add New Row to table new row is initialized as a Simple Text field */
   function addRow() {
     let row = table.insertRow(table.rows.length);
     let cell1 = row.insertCell(0);
@@ -97,11 +107,13 @@ window.onload = () => {
     cell3.innerHTML = "<input type='text'></input>"
   }
 
+  /* Delete item from Array table if this is an array in the editor */
   function deleteFromArrayTable() {
     let arrayTable = relatedButtonArrayTable.parentElement.parentElement.parentElement
     arrayTable.deleteRow(relatedButtonArrayTable.parentElement.parentElement.rowIndex)
   }
 
+  /* Add row to Array table this adds a blank text input and delete button */
   function appendToArrayTable(button) {
     let arrayTable = button.parentElement.parentElement.parentElement
     let newRow = arrayTable.insertRow(arrayTable.rows.length - 1)
@@ -111,6 +123,7 @@ window.onload = () => {
     delButton.innerHTML = "<button type='button' class='btn btn-secondary' data-bs-toggle='modal' data-bs-target='#deleteArrayItemModal'>X</button>"
   }
 
+  /* If the row is a simple text pair or tinyMCE instance this gives the option to convert the row into an array input row */
   function convertToList(button) {
     row = button.parentElement.parentElement
     if (row.classList.contains('text')) {
@@ -135,6 +148,7 @@ window.onload = () => {
     cell.innerHTML = '<table>' + arrayTable.innerHTML + '</table>'
   }
 
+  /* If the row is an array or tinyMCE instance this gives the option to convert the row into a text input row */
   function convertToText(button) {
     row = button.parentElement.parentElement
     if (row.classList.contains('array')) {
@@ -150,6 +164,7 @@ window.onload = () => {
     cell.innerHTML = "<input type='text'></input>"
   }
 
+  /* If the row is a simple text pair or array this gives the option to convert the row into a tinyCME instance row */
   function convertToLongText(button) {
     row = button.parentElement.parentElement
     if (row.classList.contains('text')) {

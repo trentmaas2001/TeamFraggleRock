@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<!-- Pull in javasctipt and set logUser for session-->
+<head>
+  <script src="tinymce/tinymce.min.js"></script>
+  <script src="./bootstrap/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+  <script src="review.js"></script>
+  <title>&#10073; Team Fraggle Rock</title>
+  <script>
+    var logUser = '<%- name %>'    
+  </script>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar bg-success navbar-expand-lg navbar-dark">
+    <span class="navbar-brand">MongoDB Editor and Quality Assurance</span>
+    <span class='backButton'>
+        <a href="/logs"><button class='btn btn-dark buttons'>Logs Page</button></a>
+        <a href="/"><button class='btn btn-dark buttons'>Back</button></a>
+    </span>
+  </nav>
+  <!-- Accept Modal -->
+  <div class="modal fade" role="dialog" id="acceptModal" tabindex="-1" aria-labelledby="acceptModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="acceptModalLabel">Accept Changes?</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button onclick="acceptChanges()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Accept Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Reject Changes Modal -->
+  <div class="modal fade" role="dialog" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="rejectModalLabel">Reject Changes?</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button onclick="rejectChanges()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Reject Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Action Buttons -->
+  <div id="adminActions">
+    <button type="button" data-bs-toggle="modal" data-bs-target="#acceptModal" class="btn btn-success">Accept Changes</button>
+    <button type="button" data-bs-toggle="modal" data-bs-target="#rejectModal" class="btn btn-success">Reject Changes</button>
+  </div>
+  <!-- Document Display-->
+  <pre id="document"></pre>
+</body>
+</html>

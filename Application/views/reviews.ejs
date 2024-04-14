@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<!-- Pull in javasctipt and set logUser for session-->
+<head>
+  <script src="./bootstrap/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+  <script src="reviews.js"></script>
+  <title>&#10073; Team Fraggle Rock</title>
+  <script>
+    var logUser = '<%- name %>'
+  </script>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar bg-success navbar-expand-lg navbar-dark">
+    <span class="navbar-brand">MongoDB Editor and Quality Assurance</span>
+    <span class='backButton'> 
+      <a href="/logs"><button class='btn btn-dark buttons'>Logs Page</button></a>
+      <form action="/logout?_method=DELETE" method="POST">
+        <button class='btn btn-dark buttons' type="submit">Log Out</button>
+      </form>
+    </span>
+  </nav>
+  <!--table container holding table of review documents-->
+  <div id="grid-container">
+
+    <div id="table-wrapper">
+      <table id="data-table">
+        <thead>
+          <tr>
+            <th class='col-2'>Admin Actions</th>
+            <th class='col-8'>Review Preview</th>
+            <th class='col-2'>Requested Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+</body>
+
+</html>
