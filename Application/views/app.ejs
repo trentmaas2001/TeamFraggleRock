@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 
+<!-- Pull in javasctipt and set logUser for session-->
 <head>
   <script src="./bootstrap/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="app.css">
@@ -13,11 +14,12 @@
 </head>
 
 <body>
-
+  <!-- Navbar -->
   <nav class="navbar bg-success navbar-expand-lg navbar-dark">
-    <div class="container-fluid">
-      <span class="navbar-brand">MongoDB Editor and Quality Assurance</span>
-    </div>
+    <span class="navbar-brand">MongoDB Editor and Quality Assurance</span>
+    <form class='backButton' action="/logout?_method=DELETE" method="POST">
+      <button class='btn btn-dark buttons' type="submit">Log Out</button>
+    </form>
   </nav>
   <!-- Delete Row Modal -->
   <div class="modal fade" id="deleteRowModal" tabindex="-1" aria-labelledby="deleteRowModalLabel" aria-hidden="true">
@@ -34,6 +36,7 @@
       </div>
     </div>
   </div>
+  <!--table container holding table of documents-->
   <div id="grid-container">
 
     <div id="table-wrapper">
@@ -41,11 +44,13 @@
         <thead>
           <tr>
             <th class='col-2'>Actions</th>
-            <th class='col-10'>Document Preview</th>
+            <th class='col-8'>Document Preview</th>
+            <th class='col-2'>Status</th>
           </tr>
         </thead>
         <tbody></tbody>
       </table>
+      <!-- Add New Document Buton -->
       <div>
         <a href="newDoc"><button class='btn btn-success buttons'>Add New Document</button></a>
       </div>

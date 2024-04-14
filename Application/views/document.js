@@ -1,18 +1,21 @@
-const getURL = "http://localhost:3000/api/allnames/"
+const getURL = "http://localhost:3000/getDoc/"
 const searchParams = new URLSearchParams(window.location.search);
 const docid = searchParams.get('docID');
 const replaceURL = "http://localhost:3000/api/replaceone/"
 
+// Table DOM Element
 let table
+// Document from database that should be displayed
 let displayDocument
-let initial
+// Count of tinyMCE instances so that each instance can have a unique id
 let tmceInstances = 0
+/* DOM Elements that last called the modals used for Deleting Items and Saving the Document*/
 let relatedButtonDataTable
 let relatedButtonArrayTable
 
 window.onload = () => {
     table = document.getElementById("data-table")
-    console.log(docid);
+    /* listener events for showing modal and storing the button DOM object used to reveal modal dialog */ 
     let deleteRowModal = document.getElementById('deleteRowModal')
     let deleteArrayItemModal = document.getElementById('deleteArrayItemModal')
     deleteRowModal.addEventListener('show.bs.modal', event => {
@@ -24,9 +27,13 @@ window.onload = () => {
     loadData()
   }
   
+  /*
+   * Routine to get the document with the same id passed as a urlParam
+   * Makes the get request using the fetch API.
+   * The response from the fetch has the document to be displayed/edited
+   */
   function loadData() {
-  
-    fetch(getURL)
+    fetch((getURL + "InWork/" + docid))
       .then(res => {
         if (res.ok) {
           return res.json()
@@ -35,9 +42,9 @@ window.onload = () => {
           return res.text().then(text => { throw new Error(text) })
         }
       })
-      .then(docs => {
-        buildData(docs)
-        return docs.length
+      .then(doc => {
+        buildData(doc)
+        return doc
       })
       .catch(error => {
         console.error("# Error:", error)
@@ -47,23 +54,26 @@ window.onload = () => {
       })
   }
   
+  /* Make call to add row to table for each key-value pair in document */
   function buildData(data) {
-    data.forEach(doc => {
-      if (doc._id == docid) { 
-        displayDocument = doc;
+    displayDocument = data
+    for (const key in data) {
+      if (key != '_id' && key != '_status') {
+        addRowInit(key)
       }
-    });
-    for (const key in displayDocument) {
-        if (key != '_id') {
-          addRowInit(key)
-        }
-      }
+    }
   }
-
+  
+  /* Delete row from table containing relatedButtonDataTable DOM Element*/
   function deleteFromDocTable() {
     table.deleteRow(relatedButtonDataTable.parentElement.parentElement.rowIndex)
   }
 
+  /* Request to save contents of table to InWork Collection
+   * Checks type of table row (text,array,longtext) and builds the data into the replacement JSON object accordingly
+   * Once replacement is built out update the _status to InWork and make a fetch to replace the contents
+   * of the document in the InWork collection with the contents of replacement JSON
+   */
   function saveData() {
     
     replacement = {}
@@ -89,7 +99,8 @@ window.onload = () => {
         }
       }
     }
-    fetch(replaceURL + docid + "/" + logUser, {
+    replacement["_status"] = "In Work"
+    fetch(replaceURL + docid, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -105,22 +116,31 @@ window.onload = () => {
     })
   }
 
+  /* Add row for the key-value pair indicated by key argument */
   function addRowInit(key) {
+    /* Insert Rows and Cells */
     let row = table.insertRow(table.rows.length);
     let cell1 = row.insertCell(0);
     let cell2 = row.insertCell(1);
     let cell3 = row.insertCell(2);
+    /* Add Action buttons for deleting this row and for converting this row into another type */
     let actionButtons = "<button title='Delete' type='button' class='buttons' data-bs-toggle='modal' data-bs-target='#deleteRowModal'>Delete</button>"
     actionButtons += "<button class='list buttons' title='Convert to List' onclick='convertToList(this)'>List</button>"
     actionButtons += "<button class='text buttons' title='Convert to Text' onclick='convertToText(this)'>Text</button>"
     actionButtons += "<button class='longtext buttons' title='Convert to Long Text' onclick='convertToLongText(this)'>Long Text</button>"
     cell1.innerHTML = actionButtons
     cell2.innerHTML = "<input type='text' value='" + key + "'></input>"
+    /* determine type of row and set row attrubutes to indicate type and hide the corresponding button the user doesn't have the option to convert a 
+     * row into a row of the same type
+     * Finally build out html for third column based on the type of value passed.
+     */
+    // Simple Text
     if (typeof displayDocument[key] != "object") {
       hideButton = cell1.getElementsByClassName('text')[0]
       hideButton.setAttribute('hidden', 'hidden')
       cell3.innerHTML = "<input type='text' value='" + displayDocument[key] + "'></input>"
       row.setAttribute('class', 'text')
+    // Array
     } else if (displayDocument[key] instanceof Array) {
       hideButton = cell1.getElementsByClassName('list')[0]
       hideButton.setAttribute('hidden', 'hidden')
@@ -137,6 +157,7 @@ window.onload = () => {
       buttonCell.innerHTML = "<button class='buttons' onclick='appendToArrayTable(this)'>Append Item To List</button>"
       cell3.innerHTML = '<table>' + arrayTable.innerHTML + '</table>'
       row.setAttribute('class', 'array')
+    // TinyMCE instance
     } else {
       hideButton = cell1.getElementsByClassName('longtext')[0]
       hideButton.setAttribute('hidden', 'hidden')
@@ -158,6 +179,7 @@ window.onload = () => {
     }
   }
 
+  /* Add New Row to table new row is initialized as a Simple Text field */
   function addRow() {
     let row = table.insertRow(table.rows.length);
     let cell1 = row.insertCell(0);
@@ -173,11 +195,13 @@ window.onload = () => {
     cell3.innerHTML = "<input type='text'></input>"
   }
 
+  /* Delete item from Array table if this is an array in the editor */
   function deleteFromArrayTable() {
     let arrayTable = relatedButtonArrayTable.parentElement.parentElement.parentElement
     arrayTable.deleteRow(relatedButtonArrayTable.parentElement.parentElement.rowIndex)
   }
 
+  /* Add row to Array table this adds a blank text input and delete button */
   function appendToArrayTable(button) {
     let arrayTable = button.parentElement.parentElement.parentElement
     let newRow = arrayTable.insertRow(arrayTable.rows.length - 1)
@@ -187,6 +211,7 @@ window.onload = () => {
     delButton.innerHTML = "<button type='button' class='btn btn-secondary' data-bs-toggle='modal' data-bs-target='#deleteArrayItemModal'>X</button>"
   }
 
+  /* If the row is a simple text pair or tinyMCE instance this gives the option to convert the row into an array input row */
   function convertToList(button) {
     row = button.parentElement.parentElement
     if (row.classList.contains('text')) {
@@ -211,6 +236,7 @@ window.onload = () => {
     cell.innerHTML = '<table>' + arrayTable.innerHTML + '</table>'
   }
 
+  /* If the row is an array or tinyMCE instance this gives the option to convert the row into a text input row */
   function convertToText(button) {
     row = button.parentElement.parentElement
     if (row.classList.contains('array')) {
@@ -226,6 +252,7 @@ window.onload = () => {
     cell.innerHTML = "<input type='text'></input>"
   }
 
+  /* If the row is a simple text pair or array this gives the option to convert the row into a tinyCME instance row */
   function convertToLongText(button) {
     row = button.parentElement.parentElement
     if (row.classList.contains('text')) {

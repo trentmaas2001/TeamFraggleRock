@@ -1,3 +1,5 @@
+/* Basic Web Page Stylings */
+
 body {
 	font-family: Helevetica, sans-serif;
 	margin: 10px;
@@ -96,13 +98,7 @@ table tr th:nth-child(4), table tr td:nth-child(4) {
 	font-weight: bold;
 }
 
-#status {
-	font-weight: normal;
-}
-
-#status-label {
-	margin-left: 15%;
-}
+/* BootStrap Styling */
 
 .header {
 	color: #FFFFFF
@@ -110,5 +106,20 @@ table tr th:nth-child(4), table tr td:nth-child(4) {
 
 .backButton {
 	margin-left: auto;
-	margin-right: 10px
+	margin-right: 10px;
+	display: inline-flex
+}
+
+#adminActions, #document, #json {
+	margin: 10px 10px;
+	font-family: Arial;
+	font-size: large;
+}
+
+#login-brand {
+	margin-left: 0;
+}
+
+.navbar-brand {
+	margin-left: 12px
 }

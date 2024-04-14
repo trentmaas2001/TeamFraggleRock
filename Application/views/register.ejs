@@ -8,7 +8,7 @@
 
 <nav class="navbar bg-success navbar-expand-lg navbar-dark">
   <div class="container-fluid">
-    <span class="navbar-brand">MongoDB Editor and Quality Assurance</span>
+    <span id="login-brand" class="navbar-brand">MongoDB Editor and Quality Assurance</span>
   </div>
 </nav>
 
@@ -25,6 +25,14 @@
   <div style='padding-left: 10px;'>
     <label for="password">Password</label>
     <input type="password" id="password" name="password" required>
+  </div>
+  <div>
+    <label for="user">User</label>
+    <input type="radio" id="user" name="role" value=user checked />
+  </div>
+  <div>
+    <label for="admin">Admin</label>
+    <input type="radio" id="admin" name="role" value=admin />
   </div>
   <button style='padding-left: 10px;' class='btn btn-success'type="submit">Register</button>
 </form>
