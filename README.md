@@ -32,7 +32,11 @@ A total of $10 was spent on crafting supplies to make changes to the EXPO poster
 
 ## Appendix
 Almost All of my User Authentication is built from this repo [User Authention Using Passport](https://github.com/WebDevSimplified/Nodejs-Passport-Login)
+
 This repo gave me a sample MongoDb Database project as foundation to build off of. [MongoDB Database Sample Application](https://github.com/prsaya/node-express-mongodb-html-demo-1)
+
 [My Project Repo](https://github.com/trentmaas2001/TeamFraggleRock)
+
 [BootStrap](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
+
 [TinyMCE](https://www.tiny.cloud/)
