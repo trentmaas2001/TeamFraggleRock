@@ -5,6 +5,8 @@ This application runs against a MongoDB database so if you are a customer who is
 
 [MongoDB Installation Guide](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/)
 
-## Application Connection to Database
+## Database Requirements
+Any Database that is used by this application should have 5 collections: InWork, Approved, Logging, Users, and Review. Upon installation of the application these collections should be empty
 
-A connection string for your database must be provided to the application. Currently this must be provided in the uri variable on line 3 of database.js
+## Application Connection to Database
+A connection string for your database must be provided to the application. Currently this must be provided in the connString variable on line 2 of database.js. The Database name must also be specified on line 4 of dbFunction.js in the same manner.

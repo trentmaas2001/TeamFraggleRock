@@ -144,7 +144,7 @@ function submitForReview(rowButton) {
 
 /* Builds out preview html for each row 
  * If the document holds more than 5 pairs More... text is added to indicate that the document contains more content than the preview
- * Array and LongText objects do not show their contents only the key name and Array size.
+ * Array and HTML objects do not show their contents only the key name and Array size.
  * Does not show _id or _status
  */
 function buildPreviewText(doc) {
@@ -161,7 +161,7 @@ function buildPreviewText(doc) {
         } else if (doc[key] instanceof Array) {
           returnText += ("&ensp;" + key + ": Array(" + doc[key].length + ")<br>")
         } else {
-          returnText += ("&ensp;" + key + ": LongText<br>")
+          returnText += ("&ensp;" + key + ": HTML<br>")
         }
         i += 1
       }

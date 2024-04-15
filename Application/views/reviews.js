@@ -67,7 +67,7 @@ function addToTable(doc) {
 
 /* Builds out preview html for each row 
  * If the document holds more than 3 pairs More... text is added to indicate that the document contains more content than the preview
- * Array and LongText objects do not show their contents only the key name and Array size.
+ * Array and HTML objects do not show their contents only the key name and Array size.
  * Does not show _id, _action, _date, or _submittedBy this content is instead shown above the preview labelled
  */
 function buildPreviewText(doc) {
@@ -86,7 +86,7 @@ function buildPreviewText(doc) {
         } else if (doc[key] instanceof Array) {
           returnText += ("&ensp;" + key + ": Array(" + doc[key].length + ")<br>")
         } else {
-          returnText += ("&ensp;" + key + ": LongText<br>")
+          returnText += ("&ensp;" + key + ": HTML<br>")
         }
         i += 1
       }
