@@ -251,8 +251,7 @@ let server
 			console.log("# App server listening on port " + port)
 		})
 		/* Connect to Database */
-    	connString = 'mongodb://localhost:27017'
-    	conn = await database(connString)
+    	conn = await database()
 		await dbFunctions.getDb(conn)
 		/* Get list of users to authenticate against */
 		users = await dbFunctions.getAllDocs("Users")

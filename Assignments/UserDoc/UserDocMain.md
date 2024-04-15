@@ -8,4 +8,8 @@ This application is only confirmed to work on Windows, the rest of this document
 
 ## [Node.js Setup](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/Assignments/UserDoc/NodeJSSetup.md)
 
-## [Application Usage](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/Assignments/UserDoc/ApplicationUsage.md)
+## [Dependency Installation](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/Assignments/UserDoc/NodeJSSetup.md)
+
+## [User Workflow](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/Assignments/UserDoc/UserWorkFlow.md)
+
+## [Admin Workflow](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/Assignments/UserDoc/AdminWorkFlow.md)

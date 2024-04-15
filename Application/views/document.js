@@ -70,7 +70,7 @@ window.onload = () => {
   }
 
   /* Request to save contents of table to InWork Collection
-   * Checks type of table row (text,array,longtext) and builds the data into the replacement JSON object accordingly
+   * Checks type of table row (text,array,HTML) and builds the data into the replacement JSON object accordingly
    * Once replacement is built out update the _status to InWork and make a fetch to replace the contents
    * of the document in the InWork collection with the contents of replacement JSON
    */
@@ -127,7 +127,7 @@ window.onload = () => {
     let actionButtons = "<button title='Delete' type='button' class='buttons' data-bs-toggle='modal' data-bs-target='#deleteRowModal'>Delete</button>"
     actionButtons += "<button class='list buttons' title='Convert to List' onclick='convertToList(this)'>List</button>"
     actionButtons += "<button class='text buttons' title='Convert to Text' onclick='convertToText(this)'>Text</button>"
-    actionButtons += "<button class='longtext buttons' title='Convert to Long Text' onclick='convertToLongText(this)'>Long Text</button>"
+    actionButtons += "<button class='HTML buttons' title='Convert to HTML' onclick='convertToHTML(this)'>HTML</button>"
     cell1.innerHTML = actionButtons
     cell2.innerHTML = "<input type='text' value='" + key + "'></input>"
     /* determine type of row and set row attrubutes to indicate type and hide the corresponding button the user doesn't have the option to convert a 
@@ -159,7 +159,7 @@ window.onload = () => {
       row.setAttribute('class', 'array')
     // TinyMCE instance
     } else {
-      hideButton = cell1.getElementsByClassName('longtext')[0]
+      hideButton = cell1.getElementsByClassName('HTML')[0]
       hideButton.setAttribute('hidden', 'hidden')
       instanceString = "instance" + tmceInstances
       tmceInstances += 1
@@ -189,7 +189,7 @@ window.onload = () => {
     let actionButtons = "<button title='Delete' type='button' class='buttons' data-bs-toggle='modal' data-bs-target='#deleteRowModal'>Delete</button>"
     actionButtons += "<button class='list buttons' title='Convert to List' onclick='convertToList(this)'>List</button>"
     actionButtons += "<button class='text buttons' hidden='hidden' title='Convert to Text' onclick='convertToText(this)'>Text</button>"
-    actionButtons += "<button class='longtext buttons' title='Convert to Long Text' onclick='convertToLongText(this)'>Long Text</button>"
+    actionButtons += "<button class='HTML buttons' title='Convert to HTML' onclick='convertToHTML(this)'>HTML</button>"
     cell1.innerHTML = actionButtons
     cell2.innerHTML = "<input type='text'></input>"
     cell3.innerHTML = "<input type='text'></input>"
@@ -218,8 +218,8 @@ window.onload = () => {
       row.classList.remove('text')
       row.cells[0].getElementsByClassName('text')[0].removeAttribute('hidden')
     } else {
-      row.classList.remove('longtext')
-      row.cells[0].getElementsByClassName('longtext')[0].removeAttribute('hidden')
+      row.classList.remove('HTML')
+      row.cells[0].getElementsByClassName('HTML')[0].removeAttribute('hidden')
     }
     row.classList.add('array')
     row.cells[0].getElementsByClassName('list')[0].setAttribute('hidden', 'hidden')
@@ -243,8 +243,8 @@ window.onload = () => {
       row.classList.remove('array')
       row.cells[0].getElementsByClassName('list')[0].removeAttribute('hidden')
     } else {
-      row.classList.remove('longtext')
-      row.cells[0].getElementsByClassName('longtext')[0].removeAttribute('hidden')
+      row.classList.remove('HTML')
+      row.cells[0].getElementsByClassName('HTML')[0].removeAttribute('hidden')
     }
     row.classList.add('text')
     row.cells[0].getElementsByClassName('text')[0].setAttribute('hidden', 'hidden')
@@ -253,7 +253,7 @@ window.onload = () => {
   }
 
   /* If the row is a simple text pair or array this gives the option to convert the row into a tinyCME instance row */
-  function convertToLongText(button) {
+  function convertToHTML(button) {
     row = button.parentElement.parentElement
     if (row.classList.contains('text')) {
       row.classList.remove('text')
@@ -262,8 +262,8 @@ window.onload = () => {
       row.classList.remove('array')
       row.cells[0].getElementsByClassName('list')[0].removeAttribute('hidden')
     }
-    row.classList.add('longtext')
-    row.cells[0].getElementsByClassName('longtext')[0].setAttribute('hidden', 'hidden')
+    row.classList.add('HTML')
+    row.cells[0].getElementsByClassName('HTML')[0].setAttribute('hidden', 'hidden')
     cell = row.cells[2]
     instanceString = "instance" + tmceInstances
     tmceInstances += 1

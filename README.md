@@ -6,38 +6,33 @@
 - Giovanni Abuaitah abuaitgi@ucmail.uc.edu
 
 ## Project Abstract
-The product is a web application that allows for streamlined database management with metadata collection allowing admins and managers to easily handle quality assurance. Alongside the metadata collection features comes secuirty allowing admins to control who is making changes within their databases. The product will also leverage the tools provided by ckEditor to make text entry seemless and easy. 
+The product is a web application that allows for streamlined database management with metadata collection allowing admins and managers to easily handle quality assurance. Alongside the metadata collection features comes secuirty allowing admins to accept or reject changes made within their databases. The product will also leverage the tools provided by tinyMCE to make text entry seemless and easy. 
 
-## [Project Description](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/Assignments/Project-Description.md)
+## [UI Specification](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/FinalDesignReport/UI_Specification.pdf)
 
-## [User Stories](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/Assignments/User_Stories.md)
+## [Test Plan and Results](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/FinalDesignReport/Test_Plan_Results.pdf)
 
-## [Design Diagrams](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/Design_Diagrams/Design_Diagrams.pdf)
+## [User Manual](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/Assignments/UserDoc/UserDocMain.md)
 
-## Diagram Descriptions
-- D0 Explanation:
-In this Diagram we have three components we have a Database Manager who provides inputs to the application. The web application will take the inputs and commmunicate the changes desired by the database manager to the database. The DataBase also provides the data to be displayed to the web application.
+## [Spring Final PPT Presentation](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/FinalDesignReport/TeamFraggleRock_Presetation.pdf)
 
-- D1 Explanation:
-In this Diagram we have the Front End of the web app providing data entry and login information to the backend. The backend then populates metainformation and makes the neccessary queries to the database. The MongoDB database then provides the data to the back-end which then sends it to be displayed on the front-end. The Back-End also provides the front-end authentication responses whenever someone attempts to login.
+## [Final Expo Poster](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/FinalDesignReport/MongoDB_Editor_Poster_Final.pdf)
 
-- D2 Description:
-Here we have a login page that a user would input their username and password into. This information is then sent to the back-end for authentication which in turn gives back it's response. Once Logged in the user will land at the All Objects Page this page recieves the data to be displayed from the back-end javascript query API. The user can then pick a specific document to edit thus landing at the object editor page. This object editor page provides a user interface to make edits to the data and when the user presses the save button the web app will use the query API in the backend to make the desired changes to the database.
+## Assessments
 
-## [Task List](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/Assignments/Task_List.md)
+### [Initial/Fall Assessment](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/Assignments/Individual_Capstone_Assessment.pdf)
 
-## [Milestones (Timeline and Effort Matrix)](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/Assignments/Milestones.pdf)
+### [Final Assessment](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/FinalDesignReport/FinalAssessment.md)
 
-## [ABET Concerns Essay](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/Assignments/Constraint_Essay.pdf)
+## [Summary of Hours and Justification](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/FinalDesignReport/SummaryofHours.pdf)
 
-## [Fall PowerPoint](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/Assignments/FallPowerPoint.pdf)
-
-## [Self-Assessment Essay](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/Assignments/Individual_Capstone_Assessment.pdf)
-
-## [Professional Biography](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/TrentMaas.md)
-
-## Budget
-Team Fraggle Rock has not used any budget at this time.
+## Summary of Expenses
+Over the course of the project Team Fraggle Rock was fortunate enough to not have to purchase any software or hardware to impletment our solution.
+A total of $10 was spent on crafting supplies to make changes to the EXPO poster after it had been printed.
 
 ## Appendix
--[Repository](https://github.com/trentmaas2001/TeamFraggleRock)
+Almost All of my User Authentication is built from this repo [User Authention Using Passport](https://github.com/WebDevSimplified/Nodejs-Passport-Login)
+This repo gave me a sample MongoDb Database project as foundation to build off of. [MongoDB Database Sample Application](https://github.com/prsaya/node-express-mongodb-html-demo-1)
+[My Project Repo](https://github.com/trentmaas2001/TeamFraggleRock)
+[BootStrap](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
+[TinyMCE](https://www.tiny.cloud/)
