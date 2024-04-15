@@ -14,7 +14,7 @@ The product is a web application that allows for streamlined database management
 
 ## [User Manual](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/Assignments/UserDoc/UserDocMain.md)
 
-## [Spring Final PPT Presentation](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/FinalDesignReport/TeamFraggleRock_Presetation.pdf)
+## [Spring Final PPT Presentation](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/FinalDesignReport/TeamFraggleRock_Presentation.pdf)
 
 ## [Final Expo Poster](https://github.com/trentmaas2001/TeamFraggleRock/blob/main/FinalDesignReport/MongoDB_Editor_Poster_Final.pdf)
 
